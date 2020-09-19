@@ -1,3 +1,4 @@
+import { HelmChart } from '@aws-cdk/aws-eks';
 import * as cdk from '@aws-cdk/core';
 import { readYamlFromDir } from '../utils/read-file';
 import { EksProps } from './cluster-stack'; 
@@ -21,7 +22,19 @@ export class ContainerStack extends cdk.Stack {
       release: 'metrics-server',
       namespace: 'metrics',
       createNamespace: true
+      // values: {
+      //   'helm.versions': 'v3',
+      //   'skdj': 'tset', 
+      // }
+    //   readonly values?: {
+    //     [key: string]: any;
+    // };
+
     });
+
+
+    const fluxcd = 'https://charts.fluxcd.io';
+
   }
 }
 

@@ -10,6 +10,7 @@ export class ContainerStack extends cdk.Stack {
     const cluster = props.cluster;
     const commonFolder = './yaml-common/';
     const regionFolder = `./yaml-${cdk.Stack.of(this).region}/`;
+    const githubuser = 'blackdog0403';
 
     readYamlFromDir(commonFolder, cluster);
     readYamlFromDir(regionFolder, cluster);
@@ -22,19 +23,41 @@ export class ContainerStack extends cdk.Stack {
       release: 'metrics-server',
       namespace: 'metrics',
       createNamespace: true
-      // values: {
-      //   'helm.versions': 'v3',
-      //   'skdj': 'tset', 
-      // }
-    //   readonly values?: {
-    //     [key: string]: any;
-    // };
-
     });
 
+    const fluxcdrepo = 'https://charts.fluxcd.io/';
 
-    const fluxcd = 'https://charts.fluxcd.io';
+    cluster.addChart('fluxcd', {
+      repository: fluxcdrepo,
+      chart: 'flux',
+      release: 'flux',
+      namespace: 'flux',
+      createNamespace:true,
+      values: {
+        git: {
+          url: 'git@github.com:blackdog0403/hello-cdk8s',
+          path: 'dist'
+        }
+      }
+    });
 
+    cluster.addChart('helm-operator', {
+      repository: fluxcdrepo,
+      chart: 'helm-operator',
+      release: 'helm-operator',
+      namespace:'flux',
+      createNamespace: true,
+      values: {
+        helm: {
+          versions : 'v3'
+        },
+        git: {
+          ssh: {
+            secretName: 'flux-git-deploy'
+          }
+        }
+      },
+    });
   }
 }
 

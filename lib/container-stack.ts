@@ -26,6 +26,8 @@ export class ContainerStack extends cdk.Stack {
     });
 
     const fluxcdrepo = 'https://charts.fluxcd.io/';
+    const githubRepo = 'git@github.com:blackdog0403/hello-cdk8s' // 'git@github.com:{본인의ID}/cdk8s-demo 로 수정할 것!
+    
 
     cluster.addChart('fluxcd', {
       repository: fluxcdrepo,
@@ -35,7 +37,7 @@ export class ContainerStack extends cdk.Stack {
       createNamespace:true,
       values: {
         git: {
-          url: 'git@github.com:blackdog0403/hello-cdk8s',
+          url: githubRepo ,
           path: 'dist'
         }
       }

@@ -11,7 +11,7 @@ export class ClusterStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const clusterRegion = 'ap-northeast-1';
+
     const clusterName ='cdk8s-demo';
 
     const clusterAdminRole = new iam.Role(this, 'AdminRole', {
@@ -26,9 +26,10 @@ export class ClusterStack extends cdk.Stack {
       defaultCapacity: 2
     });
 
+    // const clusterRegion = 'ap-northeast-1';
     // cluster.addCapacity('spot-group', {
     //   instanceType: new ec2.InstanceType('m5.xlarge'),
-    //   spotPrice: cdk.Stack.of(this).region==primaryRegion ? '0.248' : '0.192'
+    //   spotPrice: cdk.Stack.of(this).region==clusterRegion ? '0.248' : '0.192'
     // });
 
     this.cluster = cluster;

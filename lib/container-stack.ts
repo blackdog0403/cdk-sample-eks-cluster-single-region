@@ -21,8 +21,9 @@ export class ContainerStack extends cdk.Stack {
       repository: stable,
       chart: 'metrics-server',
       release: 'metrics-server',
+      version: '2.11.2',
       namespace: 'metrics',
-      createNamespace: true
+      createNamespace: true,
     });
 
     const fluxcdrepo = 'https://charts.fluxcd.io/';

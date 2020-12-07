@@ -15,7 +15,7 @@ export class ContainerStack extends cdk.Stack {
     readYamlFromDir(commonFolder, cluster);
     readYamlFromDir(regionFolder, cluster);
 
-    const stable = 'https://kubernetes-charts.storage.googleapis.com/';
+    const stable = 'https://charts.helm.sh/stable/' // 'https://kubernetes-charts.storage.googleapis.com/';
 
     cluster.addChart(`metrics-server`, {
       repository: stable,
